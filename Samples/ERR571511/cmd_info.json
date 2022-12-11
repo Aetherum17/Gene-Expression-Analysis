@@ -1,0 +1,11 @@
+{
+    "salmon_version": "1.3.0",
+    "index": "GRCh38_transcript_index",
+    "libType": "A",
+    "mates1": "./data/ERR571511_1.fastq.gz",
+    "mates2": "./data/ERR571511_2.fastq.gz",
+    "threads": "4",
+    "validateMappings": [],
+    "output": "quants/CTRL_A_ERR571511",
+    "auxDir": "aux_info"
+}

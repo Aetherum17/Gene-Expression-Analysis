@@ -1,0 +1,22 @@
+{
+    "read_files": "[ data/ERR571495_1.fastq.gz, data/ERR571495_2.fastq.gz]",
+    "expected_format": "IU",
+    "compatible_fragment_ratio": 1.0,
+    "num_compatible_fragments": 34449943,
+    "num_assigned_fragments": 34449943,
+    "num_frags_with_concordant_consistent_mappings": 29604711,
+    "num_frags_with_inconsistent_or_orphan_mappings": 6076608,
+    "strand_mapping_bias": 0.5635520643994803,
+    "MSF": 0,
+    "OSF": 0,
+    "ISF": 16683796,
+    "MSR": 0,
+    "OSR": 0,
+    "ISR": 12920915,
+    "SF": 3313900,
+    "SR": 2762708,
+    "MU": 0,
+    "OU": 0,
+    "IU": 0,
+    "U": 0
+}

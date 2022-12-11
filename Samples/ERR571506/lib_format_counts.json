@@ -1,0 +1,22 @@
+{
+    "read_files": "[ data/ERR571506_1.fastq.gz, data/ERR571506_2.fastq.gz]",
+    "expected_format": "IU",
+    "compatible_fragment_ratio": 1.0,
+    "num_compatible_fragments": 31705208,
+    "num_assigned_fragments": 31705208,
+    "num_frags_with_concordant_consistent_mappings": 26845936,
+    "num_frags_with_inconsistent_or_orphan_mappings": 6203317,
+    "strand_mapping_bias": 0.5537108112006227,
+    "MSF": 0,
+    "OSF": 0,
+    "ISF": 14864885,
+    "MSR": 0,
+    "OSR": 0,
+    "ISR": 11981051,
+    "SF": 3324861,
+    "SR": 2878456,
+    "MU": 0,
+    "OU": 0,
+    "IU": 0,
+    "U": 0
+}

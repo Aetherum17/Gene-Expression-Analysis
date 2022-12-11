@@ -1,0 +1,12 @@
+[2022-12-08 21:09:55] [INFO]    [OmnipathR] Welcome to OmnipathR!
+[2022-12-08 21:09:55] [INFO]    [OmnipathR] Setting up new cache directory `C:\Users\dl170\AppData\Local\Cache\OmnipathR`.
+[2022-12-08 21:09:55] [INFO]    [OmnipathR] Initialized cache: `C:\Users\dl170\AppData\Local\Cache\OmnipathR`.
+[2022-12-08 21:11:18] [INFO]    [OmnipathR] Cache record does not exist: `https://omnipathdb.org/interactions?genesymbols=yes&datasets=dorothea,kinaseextra,ligrecextra,lncrna_mrna,mirnatarget,omnipath,pathwayextra,small_molecule,tf_mirna,tf_target,tfregulons&organisms=9606&dorothea_levels=A,B&fields=type,dorothea_level,sources,references,curation_effort&license=academic`
+[2022-12-08 21:11:18] [INFO]    [OmnipathR] Retrieving URL: `https://omnipathdb.org/interactions?genesymbols=yes&datasets=dorothea,kinaseextra,ligrecextra,lncrna_mrna,mirnatarget,omnipath,pathwayextra,small_molecule,tf_mirna,tf_target,tfregulons&organisms=9606&dorothea_levels=A,B&fields=type,dorothea_level,sources,references,curation_effort&license=academic`
+[2022-12-08 21:11:18] [TRACE]   [OmnipathR] Attempt 1/3: `https://omnipathdb.org/interactions?genesymbols=yes&datasets=dorothea,kinaseextra,ligrecextra,lncrna_mrna,mirnatarget,omnipath,pathwayextra,small_molecule,tf_mirna,tf_target,tfregulons&organisms=9606&dorothea_levels=A,B&fields=type,dorothea_level,sources,references,curation_effort&license=academic`
+[2022-12-08 21:11:19] [INFO]    [OmnipathR] Cache item `ab3e95483755ceb7ed8681fb385fdd56653aa58c` version 1: status changed from `unknown` to `started`.
+[2022-12-08 21:11:19] [TRACE]   [OmnipathR] Exporting object to RDS: `C:\Users\dl170\AppData\Local\Cache\OmnipathR/ab3e95483755ceb7ed8681fb385fdd56653aa58c-1.rds`.
+[2022-12-08 21:11:20] [TRACE]   [OmnipathR] Exported RDS to `C:\Users\dl170\AppData\Local\Cache\OmnipathR/ab3e95483755ceb7ed8681fb385fdd56653aa58c-1.rds`.
+[2022-12-08 21:11:20] [INFO]    [OmnipathR] Download ready [key=ab3e95483755ceb7ed8681fb385fdd56653aa58c, version=1]
+[2022-12-08 21:11:20] [INFO]    [OmnipathR] Cache item `ab3e95483755ceb7ed8681fb385fdd56653aa58c` version 1: status changed from `started` to `ready`.
+[2022-12-08 21:11:24] [SUCCESS] [OmnipathR] Downloaded 174540 interactions.
