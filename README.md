@@ -99,7 +99,7 @@ the increase in the number of counts of the MYCN gene in the samples through the
 The other two genes that are present in the top 3 list of differential expression encode Small Integral 
 Membrane proteins. The latter genes in top-5 of all tables are VARS1, PPP1R10, GUSBP9, TIGD5 and GIMAP2. 
 They are Valine-TRNA Ligase, Protein Phosphatase 1 Regulatory Subunit 10, Tigger Transposable Element 
-and GTP-binding/immuno-associated nucleotide-binding protein respectively.
+and GTP-binding/immuno-associated nucleotide-binding protein, respectively.
 
 Among the 3 comparisons, not all the genes were present in each table. However, there are 7 of 
 them, differentially expressed at 1, 4 and 24 Hours time points. The graph showing how their expression changed compared to the control group after the treatment with Doxycycline is presented below. As can be seen from 
@@ -128,7 +128,7 @@ After 4 hours, only the change of activity of the Golgi apparatus can be seen.
 ![image](https://github.com/Aetherum17/Gene-Expression-Analysis/assets/46795020/e28cf687-23cb-4625-8f9d-c060cc4ed055)
 
 While after 24 hours, we can see an increase in the activity inside the nucleus (Cajal bodies, telomerases), 
-the synthesis of nucleotide phosphates, that could be used for DNA replication / RNA production or as an 
+the synthesis of nucleotide phosphates that could be used for DNA replication / RNA production or as an 
 energy source. 
 
 ![image](https://github.com/Aetherum17/Gene-Expression-Analysis/assets/46795020/f94d0caf-3450-420e-99a9-5fee978b37ac)
@@ -144,29 +144,79 @@ genes. Counts of such genes and p-adjusted values are also shown.
 
 As can be seen on the graph below, at 24 hours after exposure of cells to Doxycycline, hallmarks of normal 
 cell processes such as oxidative phosphorylation or fatty acid metabolism are present along with the 
-hallmarks of MYC and E2F targets, associated with the genesis of cancer. Also, a hallmark of the G2M
-checkpoint is present, which can indicate the proximity of the Mitosis stage, though in some tumours it is 
+hallmarks of MYC and E2F targets associated with the genesis of cancer. Also, a hallmark of the G2M
+checkpoint is present, which can indicate the proximity of the Mitosis stage, though in some tumours, it is 
 also connected with mutations leading to malignant transformation.
 
 ![image](https://github.com/Aetherum17/Gene-Expression-Analysis/assets/46795020/04d68813-4fc0-4bca-87b4-667757cd6948)
 
 Afterwards, the analysis using the Kyoto Encyclopedia of Genes and Genomes was performed via enrichKEGG() 
-function on the Entrez ID of genes, differentially expressed at 24 Hour time points, since GSEA has shown 
+function on the Entrez ID of genes, differentially expressed at 24-hour time points, since GSEA has shown 
 the presence of cancer hallmarks there. As can be seen on the dot plot below, KEGG analysis has found 
-groups of genes, associated with various diseases, among which we can also see the process connected with 
+groups of genes associated with various diseases, among which we can also see the process connected with 
 tumorogenesis: Chemical Carcinogenesis – reactive oxygen species, Thyroid cancer and ErbB signalling 
 pathway
 
 ![image](https://github.com/Aetherum17/Gene-Expression-Analysis/assets/46795020/caeda737-581c-4cc0-8220-ffa14393ba1f)
 
 Finally, the Reactome analysis was performed to see if it could find any pathways connected to 
-cancer in which the differentially expressed genes on 24 Hour time point are involved. However, the results 
+cancer in which the differentially expressed genes on 24-hour time points are involved. However, the results 
 of the enrichPathway() function have not found any, as can be seen from the tables below.
 
 ![image](https://github.com/Aetherum17/Gene-Expression-Analysis/assets/46795020/ac9246fc-ad9f-4600-a226-15958f285618)
 
 ![image](https://github.com/Aetherum17/Gene-Expression-Analysis/assets/46795020/e28de73c-ffca-4631-8499-b13ad892e5c9)
 ![image](https://github.com/Aetherum17/Gene-Expression-Analysis/assets/46795020/a65c02df-91d9-40a7-8fc7-3c3037468028)
+
+# Discussion
+
+From the results section, it can be seen that overall, the usage of Doxycycline has caused the desired effect, 
+as in Figure 3, we see an increase in counts of the MYCN gene. This gene is a proto-oncogene, deregulation 
+of which occurs in various types of cancer, including Neuroblastoma - a malignant tumour of the sympathetic 
+nervous system[5,6]. However, since this disease looks to have a complex nature, it usually involves the 
+mutation of other genes as well, such as p53, which plays an important role in the p53/TP53-mediating 
+signalling pathway[5]. Indeed, in our case, we can also observe a decrease in the expression of the TP53TG3B 
+gene, as mentioned in the results, which is also part of the p53/TP53 pathway7
+, as can be seen in Figure 5.
+
+Another possible sign indicating that at 24 24-hour time point, the cell starts forming a tumour can be seen in 
+figure 8, where there is a high number of processes associated with Cajal Bodies – present in neuronal and 
+cancer cells, but not in other normal diploid cells[8]. Though this also can be caused by the neuronal origin of 
+the tumour, despite the fact that such activity was not observed in 1 and 4-hour time points (Figures 6 and 
+7).
+
+The later performed Gene Set Enrichment Analysis further highlights the cancerogenic nature of studied 
+cells, as shows the presence of hallmarks MYC Targets V1, MYC Targets V2, G2 Checkpoint and E2F Targets 
+(Figure 9). MYC is a group of C-MYC, L-MYC and N-MYC proteins, which are part of the MYC oncogenic family, 
+consisting of MYCC, MYCL and already mentioned MYCN genes[9]. MYC proteins act as oncogenic 
+transcriptional factors, as they promote cell growth and proliferation, alter apoptosis and activate 
+telomerases. The latter could also be observed in the Gene Ontology results of Figure 8, where a number of 
+processes related to Telomerase RNA, used as a template for telomere replication by telomerases, are 
+present. G2M checkpoint is another detected cancer hallmark that controls the transition from G2 to M 
+stages of the cell cycle and marks an increased aggressiveness of a tumour10. The same applies to the last 
+unveiled cancer hallmark - E2F Targets – which mark cancer cells with increased expression of proliferation-related genes[11].
+
+After confirming that the cells in the experiment had obtained multiple hallmarks of cancer, KEGG analysis 
+was performed (Figure 10). It has found genes associated with various neurodegeneration diseases, such as 
+Alzheimer, Parkinson or Huntington, as well as a couple of groups for malignant tumour development, but 
+not for Neuroblastoma. Apparently, the https://www.genome.jp/kegg/pathway.html website just does not 
+have any pathway map designed specifically for it, as can be seen in Figure 13, most likely due to mentioned 
+earlier complex biology of the disease.
+
+![image](https://github.com/Aetherum17/Gene-Expression-Analysis/assets/46795020/e0d457b1-e5b1-4c27-a681-6ff7dac43679)
+
+Thus, a closer look was taken at the Chemical carcinogenesis - reactive oxygen species pathway. This 
+is a complex pathway[12], as can be seen at Figure 15, so let’s take a closer look at the ENSG00000134184
+and ENSG00000277897 genes, as they show the biggest effect size change among all differentially 
+expressed genes related to Chemical carcinogenesis reactive oxygen species pathway, if judged by log2 fold 
+change metrics. This pair of genes encode glutathione S-transferase enzyme[13,14], that in the Kegg database 
+have the symbols of GSTT215 and GSTM116 and are shown in Figure 16 under the symbol GSTO1.
+
+![image](https://github.com/Aetherum17/Gene-Expression-Analysis/assets/46795020/0e558bb4-ab66-4ed7-aa47-4c26a4e3b25c)
+
+![image](https://github.com/Aetherum17/Gene-Expression-Analysis/assets/46795020/84887763-bfe0-4ad1-90c7-6ae5b3b1a6fc)
+
+![image](https://github.com/Aetherum17/Gene-Expression-Analysis/assets/46795020/4c78fd59-df18-48e7-8fc6-2ef83a63ca31)
 
 
 
