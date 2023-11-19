@@ -123,6 +123,54 @@ As can be seen from the bar plot below, after one hour, most genes are involved 
 
 ![image](https://github.com/Aetherum17/Gene-Expression-Analysis/assets/46795020/5caa3c59-6862-4db0-8d89-03b4c0de80aa)
 
+After 4 hours, only the change of activity of the Golgi apparatus can be seen.
+
+![image](https://github.com/Aetherum17/Gene-Expression-Analysis/assets/46795020/e28cf687-23cb-4625-8f9d-c060cc4ed055)
+
+While after 24 hours, we can see an increase in the activity inside the nucleus (Cajal bodies, telomerases), 
+the synthesis of nucleotide phosphates, that could be used for DNA replication / RNA production or as an 
+energy source. 
+
+![image](https://github.com/Aetherum17/Gene-Expression-Analysis/assets/46795020/f94d0caf-3450-420e-99a9-5fee978b37ac)
+
+The next step was performing the Gene Set Enrichment Analysis with the GSEA() function of the 
+clusterProfiler library to associate the hallmarks of diseases with certain genes. As the results of the Gene 
+Ontology search has not shown any signs of abnormal cellular activity at 1 and 4 Hours time points, GSEA 
+analysis was performed using the differential gene expression data of 24 Hours vs Control, where an increase 
+in processes related to Cajal bodies was observed. The results of Gene Set Enrichment Analysis are 
+summarized in the dot plot below, showing the number of genes associated with human Hallmarks by gene 
+ratio - the number of genes related to the Gene Ontology process divided by the total number of expected 
+genes. Counts of such genes and p-adjusted values are also shown.
+
+As can be seen on the graph below, at 24 hours after exposure of cells to Doxycycline, hallmarks of normal 
+cell processes such as oxidative phosphorylation or fatty acid metabolism are present along with the 
+hallmarks of MYC and E2F targets, associated with the genesis of cancer. Also, a hallmark of the G2M
+checkpoint is present, which can indicate the proximity of the Mitosis stage, though in some tumours it is 
+also connected with mutations leading to malignant transformation.
+
+![image](https://github.com/Aetherum17/Gene-Expression-Analysis/assets/46795020/04d68813-4fc0-4bca-87b4-667757cd6948)
+
+Afterwards, the analysis using the Kyoto Encyclopedia of Genes and Genomes was performed via enrichKEGG() 
+function on the Entrez ID of genes, differentially expressed at 24 Hour time points, since GSEA has shown 
+the presence of cancer hallmarks there. As can be seen on the dot plot below, KEGG analysis has found 
+groups of genes, associated with various diseases, among which we can also see the process connected with 
+tumorogenesis: Chemical Carcinogenesis – reactive oxygen species, Thyroid cancer and ErbB signalling 
+pathway
+
+![image](https://github.com/Aetherum17/Gene-Expression-Analysis/assets/46795020/caeda737-581c-4cc0-8220-ffa14393ba1f)
+
+Finally, the Reactome analysis was performed to see if it could find any pathways connected to 
+cancer in which the differentially expressed genes on 24 Hour time point are involved. However, the results 
+of the enrichPathway() function have not found any, as can be seen from the tables below.
+
+![image](https://github.com/Aetherum17/Gene-Expression-Analysis/assets/46795020/ac9246fc-ad9f-4600-a226-15958f285618)
+
+![image](https://github.com/Aetherum17/Gene-Expression-Analysis/assets/46795020/e28de73c-ffca-4631-8499-b13ad892e5c9)
+![image](https://github.com/Aetherum17/Gene-Expression-Analysis/assets/46795020/a65c02df-91d9-40a7-8fc7-3c3037468028)
+
+
+
+
 
 
 
