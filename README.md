@@ -7,67 +7,6 @@ in their genome and proteome. Those findings open up opportunities to study a va
 processes and diseases that may arise from their disorders. Therefore, this project aims to
 analyze RNA expression data in the cloned subline of neuroblastoma cells and interpret the results.
 
-# Methods
-The Gene Expression analysis was performed in the IDE RStudio using the following libraries:
-1) To work with the imported data: dplyr, tidyr, plyr, tibble, reshape2
-2) To perform the gene expression analysis itself: airway, DESeq2, tximeta
-3) To annotate the results of gene expression analysis: AnnotationDbi, org.Hs.eg.db
-4) To perform pathway analysis: clusterProfiler, RCy3, DOSE, ReactomePA. 
-5) To visualize the results: ggplot2, ggbeeswarm, pheatmap, genefilter
-
-The gene expression analysis was based on the results of the experiment featuring the treatment of SH-SY5Y/6TR(EU)/pTrex-Dest-30/MYCN (SY5Y-MYCN) cell line with Doxycycline in the concentration of 1μg/ml 
-in order to induce overexpression of MYCN. The total RNA of cells was extracted at 0 hours, 1 hour, 4 hours 
-and 24 hours after the Doxycycline injection using TRI Reagent according to the manufacturer’s protocol and 
-sequenced on an Illumina GA IIx following the Illumina protocols. Gene expression quantification was 
-performed using the Salmon tool and GRCh38 reference genome. The experiment was performed in two 
-iterations, the results of which were used for this analysis.
-
-First of all, the metadata file was read and quant.sf files for a gene-expression time-course in response to
-MYCN induction of samples was loaded. Then, the transcript quantification was performed via tximeta
-library, and those results were summarized at the gene level. Next, the DESeq data structure was set up in 
-order to be used for the following differential gene analysis. Genes with low expression counts (<10 on the 
-sum of all measurements of the two experiments) were dropped from the analysis, performed using the 
-DESeq () function. The results of expression analysis were then filtered by padj and log2FoldChange variables 
-to keep only the genes that have a statistically significant change of expression (p adjusted value <0.05) with a big enough 
-effect size (log fold change value >1 or <-1). Then, annotation of genes was performed, and the short symbol "name" was added to 
-the end of each table row. Finally, the three tables comparing differential gene expression (1 Hour vs 
-Control, 4 Hours vs Control and 24 Hours vs Control) were saved in .csv format.
-
-Next, quality control of the given samples was performed to check if the experimental impact on cells 
-was successful and to see how the expression pattern of genes changed through the course of 
-measurements in the two experimental iterations. To do this, a graph for counts of MYCN gene was created 
-using the plotCounts() and ggplot() functions by looking for the Ensemble ID of ENSG00000134323. Then, the data for visualization was normalized via variance shrinkage algorithm, and the top 20 most variable 
-genes were selected to create a Principal Components Plot via the plotPCA() function of the BiocGenerics library and 
-clustered Heatmap via the pheatmap() function of pheatmap library.
-
-Afterwards, the three created tables of performed differential gene expression analysis were loaded and 
-seven genes, present in all three time points, were selected to draw a graph illustrating how their expression was changing 
-using the ggplot() function. 
-
-Then, the pathway analysis was performed via the Gene Ontology search[1], Gene Set Enrichment 
-Analysis[2], Kyoto Encyclopedia of Genes and Genomes Analysis[3] and Reactome Pathway analysis[4]. The Gene 
-Ontology search was performed on all three tables to find out in what process the differentially expressed 
-genes are involved. First, all the genes that were not differentially expressed were dropped, and only the genes that had 
-a p-value<0.05 were selected. Then, the bitr() function was used to find the ENTREZ ID for each present ENSEMBL ID and inputted 
-the result into the enrichGO() function. Afterwards, the ggplot() function was used to draw bar plots for Gene 
-Ontology.
-
-Gene Set Enrichment Analysis was the hardest part of Pathway analysis as the GSEA() function used to 
-perform it required an ordered named list of Entrez ID and their p-values, which were in two different tables 
-of different sizes with duplicated observations. So, first of all, the created during the Gene Ontology search 
-ENSEMBL ID – ENTREZ ID data frame was used to drop all the genes from the p-values table that do not have their 
-own Entrez ID, and then for each gene, its Entrez ID was obtained via the already mentioned bitr() function. If the 
-function returned more than one ID for a gene, the Ensemble IDs and p-values were duplicated to 
-maintain the structure: 1 Ensemble ID – 1 p-value – 1 Entrez ID. The result was saved in the dds_enterzid.csv 
-file. Then the Homo sapiens Hallmarks collection of genes was loaded, and all p-values were converted to p-scores 
-using the formula: p-score = -10*log(p-value). Finally, the list for the GSEA() function was created, and its results 
-were visualized using the dotplot() function.
-
-Next, was the Kyoto Encyclopedia of Genes and Genomes Analysis performed via the enrichKEGG() function, 
-using the generated Entrez ID data frame and visualized via the dotplot() function. In the end, the Reactome 
-analysis was performed using the enrichPathway() function. The returned names of pathways were then 
-visualized using the viewPathway() function.
-
 # Results
 
 The performed quality control has highlighted the fact that some genes in the same experiment time were 
@@ -218,10 +157,130 @@ have the symbols of GSTT215 and GSTM116 and are shown in Figure 16 under the sym
 
 ![image](https://github.com/Aetherum17/Gene-Expression-Analysis/assets/46795020/4c78fd59-df18-48e7-8fc6-2ef83a63ca31)
 
+Glutathione transferases play an important role in the processes of cell detoxification, modification and 
+synthesis of leukotrienes as well as prostaglandins. Those enzymes also help to avoid oxidative stress. 
+Glutathione transferases are capable of catalyzing the conjuration of glutathione (GSH) to a variety of 
+hydrophobic and electrophilic molecules, making them less toxic and prone to further modifications to later 
+be discharged from cells[17, 18].
 
+However, glutathione transferases can also participate in the signalling pathways, as they control the activity 
+of mitogen-activated protein kinases. This feature is used by some tumour cells, for example, to bind to the 
+c-Jun N-terminal kinase of the MAPK signalling pathway, deactivate the protein and therefore inhibit 
+apoptotic signal[17, 19]. In the same way, glutathione transferases can interfere with the work of tumour 
+necrosis factor receptor-associated factor 2 and p3819.
 
+Moreover, glutathione transferases can use their conjugating function to provide anti-cancer drug resistance 
+to malignant cells by detoxification of medicine. Indeed, in many cancers, an increased expression of this 
+enzyme’s gene is shown compared to normal cells17. The same result is obtained in our observations (Figure 
+14).
 
+Thus, it is possible to assume that increased levels of Glutathione S-transferase will contribute to the 
+survival, proliferation and drug resistance of Neuroblastoma cells, as this enzyme will be able to disrupt the 
+work of multiple pathways, including MAPK, and make the cancer cells more chemoresistant. 
 
+Finally, it is worth noting that based on the obtained results, no more additional experiments should be conducted with this cell line,
+until more repeats for the current experiment are completed since the results of quality control imply that two 
+iterations of the experiments were conducted under different conditions, as at the same time point in two 
+repeats, we see a different expression of the same genes on the heatmap (Figure 1). Additionally, the principal 
+component analysis has put only one pair of samples out of four close to each other (Figure 2). Moreover, 
+the results of Reactome analysis show the activity of paths related to viruses: Export of Viral 
+Ribonucleoproteins from the Nucleus, Rev-mediated nuclear export of HIV RNA, SARS-CoV-2 
+activates/modulates innate and adaptive immune responses, SARS-CoV-2-host interactions, Viral Messenger 
+RNA Synthesis, Host Interactions of HIV factors, HIV Infection (Figure 12). Hence, maybe it is also worth
+testing the cell culture on viral contamination, as its presence can nullify the results of all future conducted 
+work with this material.
 
+# Methods
+The Gene Expression analysis was performed in the IDE RStudio using the following libraries:
+1) To work with the imported data: dplyr, tidyr, plyr, tibble, reshape2
+2) To perform the gene expression analysis itself: airway, DESeq2, tximeta
+3) To annotate the results of gene expression analysis: AnnotationDbi, org.Hs.eg.db
+4) To perform pathway analysis: clusterProfiler, RCy3, DOSE, ReactomePA. 
+5) To visualize the results: ggplot2, ggbeeswarm, pheatmap, genefilter
 
+The gene expression analysis was based on the results of the experiment featuring the treatment of SH-SY5Y/6TR(EU)/pTrex-Dest-30/MYCN (SY5Y-MYCN) cell line with Doxycycline in the concentration of 1μg/ml 
+in order to induce overexpression of MYCN. The total RNA of cells was extracted at 0 hours, 1 hour, 4 hours 
+and 24 hours after the Doxycycline injection using TRI Reagent according to the manufacturer’s protocol and 
+sequenced on an Illumina GA IIx following the Illumina protocols. Gene expression quantification was 
+performed using the Salmon tool and GRCh38 reference genome. The experiment was performed in two 
+iterations, the results of which were used for this analysis.
 
+First of all, the metadata file was read and quant.sf files for a gene-expression time-course in response to
+MYCN induction of samples was loaded. Then, the transcript quantification was performed via tximeta
+library, and those results were summarized at the gene level. Next, the DESeq data structure was set up in 
+order to be used for the following differential gene analysis. Genes with low expression counts (<10 on the 
+sum of all measurements of the two experiments) were dropped from the analysis, performed using the 
+DESeq () function. The results of expression analysis were then filtered by padj and log2FoldChange variables 
+to keep only the genes that have a statistically significant change of expression (p adjusted value <0.05) with a big enough 
+effect size (log fold change value >1 or <-1). Then, annotation of genes was performed, and the short symbol "name" was added to 
+the end of each table row. Finally, the three tables comparing differential gene expression (1 Hour vs 
+Control, 4 Hours vs Control and 24 Hours vs Control) were saved in .csv format.
+
+Next, quality control of the given samples was performed to check if the experimental impact on cells 
+was successful and to see how the expression pattern of genes changed through the course of 
+measurements in the two experimental iterations. To do this, a graph for counts of MYCN gene was created 
+using the plotCounts() and ggplot() functions by looking for the Ensemble ID of ENSG00000134323. Then, the data for visualization was normalized via variance shrinkage algorithm, and the top 20 most variable 
+genes were selected to create a Principal Components Plot via the plotPCA() function of the BiocGenerics library and 
+clustered Heatmap via the pheatmap() function of pheatmap library.
+
+Afterwards, the three created tables of performed differential gene expression analysis were loaded and 
+seven genes, present in all three time points, were selected to draw a graph illustrating how their expression was changing 
+using the ggplot() function. 
+
+Then, the pathway analysis was performed via the Gene Ontology search[1], Gene Set Enrichment 
+Analysis[2], Kyoto Encyclopedia of Genes and Genomes Analysis[3] and Reactome Pathway analysis[4]. The Gene 
+Ontology search was performed on all three tables to find out in what process the differentially expressed 
+genes are involved. First, all the genes that were not differentially expressed were dropped, and only the genes that had 
+a p-value<0.05 were selected. Then, the bitr() function was used to find the ENTREZ ID for each present ENSEMBL ID and inputted 
+the result into the enrichGO() function. Afterwards, the ggplot() function was used to draw bar plots for Gene 
+Ontology.
+
+Gene Set Enrichment Analysis was the hardest part of Pathway analysis as the GSEA() function used to 
+perform it required an ordered named list of Entrez ID and their p-values, which were in two different tables 
+of different sizes with duplicated observations. So, first of all, the created during the Gene Ontology search 
+ENSEMBL ID – ENTREZ ID data frame was used to drop all the genes from the p-values table that do not have their 
+own Entrez ID, and then for each gene, its Entrez ID was obtained via the already mentioned bitr() function. If the 
+function returned more than one ID for a gene, the Ensemble IDs and p-values were duplicated to 
+maintain the structure: 1 Ensemble ID – 1 p-value – 1 Entrez ID. The result was saved in the dds_enterzid.csv 
+file. Then the Homo sapiens Hallmarks collection of genes was loaded, and all p-values were converted to p-scores 
+using the formula: p-score = -10*log(p-value). Finally, the list for the GSEA() function was created, and its results 
+were visualized using the dotplot() function.
+
+Next, was the Kyoto Encyclopedia of Genes and Genomes Analysis performed via the enrichKEGG() function, 
+using the generated Entrez ID data frame and visualized via the dotplot() function. In the end, the Reactome 
+analysis was performed using the enrichPathway() function. The returned names of pathways were then 
+visualized using the viewPathway() function.
+
+# References:
+1. Carlson M (2019). org.Hs.eg.db: Genome wide annotation for Human. R package version 3.8.2.
+2. https://www.gsea-msigdb.org/gsea/index.jsp
+3. https://www.genome.jp/kegg/kegg1.html
+4. https://reactome.org/PathwayBrowser/
+5. Johnsen JI, Dyberg C and Wickström M (2019) Neuroblastoma—A Neural Crest Derived Embryonal 
+Malignancy. Front. Mol. Neurosci. 12:9. doi: 10.3389/fnmol.2019.00009
+6. Liu Z, Chen SS, Clarke S, Veschi V and Thiele CJ (2021) Targeting MYCN in Pediatric and Adult 
+Cancers. Front. Oncol. 10:623679. doi: 10.3389/fonc.2020.623679
+7. https://www.genecards.org/cgi-bin/carddisp.pl?gene=TP53TG3B
+8. Sawyer, Iain A. (2018). Nuclear Architecture and Dynamics || Nuclear Bodies. , (), 235–
+256. doi:10.1016/B978-0-12-803480-4.00010-7
+9. Liu R, Shi P, Wang Z, Yuan C and Cui H (2021) Molecular Mechanisms of MYCN Dysregulation in 
+Cancers. Front. Oncol. 10:625332. doi: 10.3389/fonc.2020.625332
+10. Oshi M., Takahashi H., Tokumaru Y., Yan L., Rashid O.M., Matsuyama R., Endo I., Takabe K. G2M Cell 
+Cycle Pathway Score as a Prognostic Biomarker of Metastasis in Estrogen Receptor (ER)-Positive 
+Breast Cancer. Int. J. Mol. Sci. 2020;21:2921. doi: 10.3390/ijms21082921.
+11. Oshi M., Takahashi H., Tokumaru Y., Yan L., Rashid O.M., Nagahashi M., Matsuyama R., Endo I., 
+Takabe K. The E2F Pathway Score as a Predictive Biomarker of Response to Neoadjuvant Therapy in 
+ER+/HER2- Breast Cancer. Cells. 2020;9:1643. doi: 10.3390/cells9071643.
+12. https://www.genome.jp/pathway/hsa05208
+13. https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000134184;r=1:109687814-
+109709039
+14. https://en.wikipedia.org/wiki/GSTT2
+15. https://www.genome.jp/dbget-bin/www_bget?hsa:2953
+16. https://www.genome.jp/entry/hsa:2944
+17. Allocati, N., Masulli, M., Di Ilio, C. et al. Glutathione transferases: substrates, inihibitors and prodrugs in cancer and neurodegenerative diseases. Oncogenesis 7, 8 (2018). 
+https://doi.org/10.1038/s41389-017-0025-3
+18. Laborde, E. Glutathione transferases as mediators of signaling pathways involved in cell 
+proliferation and cell death. Cell Death Differ 17, 1373–1380 (2010). 
+https://doi.org/10.1038/cdd.2010.80
+19. Singh, R.R.; Reindl, K.M. Glutathione S-Transferases in Cancer. Antioxidants 2021, 10, 701. 
+https://doi.org/10.3390/antiox10050701
